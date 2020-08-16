@@ -12,10 +12,20 @@ ApplicationWindow {
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
-        Page1Form {
+        Page {
+            id: page1
+            Label{
+                anchors.centerIn: parent
+                text: "I am page1"
+            }
         }
 
-        Page2Form {
+        Page {
+            id: page2
+            Label{
+                anchors.centerIn: parent
+                text: "I am page2"
+            }
         }
     }
 
