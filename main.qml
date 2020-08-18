@@ -1,44 +1,76 @@
 ﻿import QtQuick 2.11
 import QtQuick.Controls 2.4
+import QtQuick.Window 2.2
 
 ApplicationWindow {
     id: center
     visible: false
-    width: 640
-    height: 480
-    title: qsTr("Tabs")
+    width: Screen.desktopAvailableWidth
+    height: Screen.desktopAvailableHeight
+    flags: Qt.FramelessWindowHint
+
+    property int pointSize: 16
+
+    Rectangle {
+        id: titleBar
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 5
+        height: 50
+        color: "#2f2e4b"
+    }
+
+    Button {
+        id: closeBtn
+        anchors.right: titleBar.right
+        anchors.top: titleBar.top
+        anchors.bottom: titleBar.bottom
+        anchors.margins: 5
+        implicitWidth: 40
+        implicitHeight: 40
+        text: "X"
+        font.pointSize: pointSize
+        onClicked: Qt.quit()
+    }
 
     SwipeView {
         id: swipeView
+        x: 50
+        y: 100
+        width: 200
+        height: 200
+
+        currentIndex: 1
         anchors.fill: parent
-        currentIndex: tabBar.currentIndex
 
-        Page {
-            id: page1
-            Label{
-                anchors.centerIn: parent
-                text: "I am page1"
-            }
+        Item {
+            id: firstPage
+        }
+        Item {
+            id: secondPage
+        }
+        Item {
+            id: thirdPage
         }
 
-        Page {
-            id: page2
-            Label{
-                anchors.centerIn: parent
-                text: "I am page2"
-            }
-        }
     }
+    PageIndicator {
+        id: indicator
 
-    footer: TabBar {
-        id: tabBar
+        count: swipeView.count
         currentIndex: swipeView.currentIndex
 
-        TabButton {
-            text: qsTr("Page 1")
-        }
-        TabButton {
-            text: qsTr("Page 2")
+        anchors.bottom: swipeView.bottom
+        //anchors.horizontalCenter: parent.horizontalCenter
+    }
+
+
+    background: Rectangle {
+        anchors.fill: parent
+        gradient: Gradient {
+            GradientStop { position: 0; color: "#0d1725"}
+            GradientStop { position: 1; color: "#1d7078"}
         }
     }
 

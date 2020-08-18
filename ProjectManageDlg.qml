@@ -9,7 +9,6 @@ ApplicationWindow {
     flags: Qt.FramelessWindowHint
     width: 600
     height: 400
-    title: qsTr("项目管理")
     property int pointSize: 16
     signal login
     signal exit
