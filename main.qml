@@ -1,8 +1,9 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.5
+﻿import QtQuick 2.11
+import QtQuick.Controls 2.4
 
 ApplicationWindow {
-    visible: true
+    id: center
+    visible: false
     width: 640
     height: 480
     title: qsTr("Tabs")
@@ -38,6 +39,23 @@ ApplicationWindow {
         }
         TabButton {
             text: qsTr("Page 2")
+        }
+    }
+
+    Loader {
+        id: projectManageDlg
+        source: "ProjectManageDlg.qml"
+        visible: status == Loader.Ready
+    }
+
+    Connections {
+        target: projectManageDlg.item
+        onLogin: {
+            center.visible = true
+            projectManageDlg.source = ""
+        }
+        onExit: {
+            Qt.quit()
         }
     }
 }
